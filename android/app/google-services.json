@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "63151617314",
+    "project_id": "bibliodam-app",
+    "storage_bucket": "bibliodam-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63151617314:android:35cab5f07c70a72405217b",
+        "android_client_info": {
+          "package_name": "com.example.bibliodam_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDTU8nwGLwX0SYx96fMDQ8G8NGvszHllE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
