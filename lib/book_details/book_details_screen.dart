@@ -13,15 +13,19 @@ class BookDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Detalle Libro"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SingleChildScrollView(),
-            BookCoverWidget(_book.coverUrl),
-            BookInfoWidget(_book.title, _book.author, _book.description),
-            BookActionsWidget(_book.id),
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              BookCoverWidget(_book.coverUrl),
+              BookInfoWidget(_book.title, _book.author, _book.description),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 30),
+                child: BookActionsWidget(_book.id),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -49,7 +53,7 @@ class BookActionsWidget extends StatelessWidget {
         return ElevatedButton(
           onPressed: action,
           child: Text(label),
-          style: ElevatedButton.styleFrom(backgroundColor: color ),
+          style: ElevatedButton.styleFrom(backgroundColor: color),
         );
       },
     );

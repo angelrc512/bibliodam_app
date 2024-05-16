@@ -109,7 +109,7 @@ class ListItemBook extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
-                              .copyWith(fontSize: 30),
+                              .copyWith(fontSize: 20),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                           ),
@@ -120,7 +120,7 @@ class ListItemBook extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
-                              .copyWith(fontSize: 20)),
+                              .copyWith(fontSize: 10)),
                       SizedBox(height: 15),
                       Text(_book.description,
                           maxLines: 4,
