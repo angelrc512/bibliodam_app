@@ -1,3 +1,4 @@
+import 'package:bibliodam_app/add_book/add_book_screen.dart';
 import 'package:bibliodam_app/book_details/book_details_screen.dart';
 import 'package:bibliodam_app/model/book.dart';
 import 'package:bibliodam_app/state.dart';
@@ -11,31 +12,61 @@ class bookshelfScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookshelfBloc, BookshelfState>(
-      builder: (context, BookshelfState) {
-        if (BookshelfState.bookIds.isEmpty) {
-          return Center(
-              child: Text(
-            "No hay libros en la estantería",
-            style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.center,
-          ));
-        }
-        return Container(
-          margin: EdgeInsets.all(16),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.7,
-            ),
-            itemCount: BookshelfState.bookIds.length,
-            itemBuilder: (context, index) {
-              return BookCoverItem(BookshelfState.bookIds[index]);
-            },
-          ),
-        );
-      },
+        builder: (context, bookshelfState) {
+      var emptyListWidget = Center(
+          child: Text(
+        "No hay libros en la estantería",
+        style: Theme.of(context).textTheme.headlineMedium,
+        textAlign: TextAlign.center,
+      ));
+
+      var mainwidget = bookshelfState.bookIds.isEmpty
+          ? emptyListWidget
+          : MyBooksGrid(bookshelfState.bookIds);
+
+      return Column(
+        children: [
+          Expanded(child: mainwidget),
+          ElevatedButton(
+              onPressed: () {
+                _navigateToAddNewBookScreen(context);
+              },
+              child: const Text("Agregar nuevo libro")),
+        ],
+      );
+    });
+  }
+
+  void _navigateToAddNewBookScreen(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AddBookScreen(),
+        ));
+  }
+}
+
+class MyBooksGrid extends StatelessWidget {
+  final List<String> bookIds;
+
+  const MyBooksGrid(this.bookIds, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 0.7,
+        ),
+        itemCount: bookIds.length,
+        itemBuilder: (context, index) {
+          return BookCoverItem(bookIds[index]);
+        },
+      ),
     );
   }
 }
@@ -67,7 +98,9 @@ class _BookCoverItemState extends State<BookCoverItem> {
   @override
   Widget build(BuildContext context) {
     if (_book == null) {
-      return const Center(child: CircularProgressIndicator(),);
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
     }
     return InkWell(
       onTap: () {
@@ -76,8 +109,9 @@ class _BookCoverItemState extends State<BookCoverItem> {
       child: Ink.image(fit: BoxFit.cover, image: AssetImage(_book!.coverUrl)),
     );
   }
+
   _openBookDetails(Book book, BuildContext context) {
     Navigator.push(context,
-    MaterialPageRoute(builder: (context) => BookDetailScreen(book)));
+        MaterialPageRoute(builder: (context) => BookDetailScreen(book)));
   }
 }
