@@ -5,11 +5,12 @@ import 'package:bibliodam_app/state.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/foundation.dart';
 
-Future <void> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await Firebase.initializeApp();
-    runApp(const BiblioApp());
+  await Firebase.initializeApp();
+  runApp(const BiblioApp());
 }
 
 class BiblioApp extends StatelessWidget {
@@ -20,6 +21,7 @@ class BiblioApp extends StatelessWidget {
     return BlocProvider(
       create: (_) => BookshelfBloc(BookshelfState([])),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Biblioapp',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
@@ -46,13 +48,27 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     CategoriesScreen(),
     bookshelfScreen(),
   ];
-
+  String ImgLink =
+      "https://www.alianzafpdual.es/wp-content/uploads/2022/01/Cesur-centro-superior-de-formacion_logo.png";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text("BiblioDAM"),
-          backgroundColor: Color.fromARGB(255, 68, 69, 146)),
+        title: const Text("BiblioDAM"),
+        backgroundColor: Colors.white,
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.only(top: 50),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.network(
+                ImgLink,
+                width: 100,
+              ),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
